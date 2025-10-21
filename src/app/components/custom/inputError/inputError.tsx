@@ -1,7 +1,9 @@
 "use client";
-
 import React from "react";
-import { InputErrorProps } from "./types";
+
+interface InputErrorProps {
+  message?: string;
+}
 
 const InputError: React.FC<InputErrorProps> = ({ message }) =>  {
   if (!message) return null;

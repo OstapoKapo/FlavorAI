@@ -20,6 +20,7 @@
 }
 
 body {
+  padding: 10px 20px;
   background: linear-gradient(135deg, #ffe5d9, #ffd6a5, #fdffb6, #caffbf);
   font-family: var(--font-montserrat);
   color: #3a3a3a;

@@ -1,3 +1,5 @@
+import { logout } from '@/api/auth/auth.api';
+import { logoutServerSide } from '@/utils/logout.utils';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -13,6 +15,8 @@ mainAxios.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 		if (error.status === 401 && !originalRequest._retry) {
+			await logout();
+			logoutServerSide();
 		}
 		if (error.response) {
 			const status = error.response.status;

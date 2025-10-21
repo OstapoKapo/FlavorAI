@@ -1,3 +1,4 @@
+import { cookies } from 'next/dist/server/request/cookies';
 import type { HttpService } from './http.service';
 
 import type { IHttpConfig, IMap } from './types';
@@ -62,12 +63,16 @@ export class EnhancedWithAuthHttpService {
 	}
 
 	private async attachAuthHeader(config: IHttpConfig): Promise<IHttpConfig> {
-  		return {
-    		...config,
-    		credentials: 'include', 
-    		headers: {
+		const cookieStore = typeof window === 'undefined' ? await cookies() : null;
+		const token = typeof window === 'undefined' ? cookieStore?.get('accessToken')?.value : localStorage.getItem('accessToken');
+		console.log('token', token);
+		return {
+			...config,
+			credentials: 'include', 
+			 headers: {
       			...config.headers,
+      			...(token ? { Authorization: `Bearer ${token}` } : {}),
     		},
-  		};
+		};
 	}
 }

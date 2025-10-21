@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { QueryClientProviderWrapper } from "./components/providers/queryClient";
+import { QueryClientProviderWrapper } from "./components/layout/queryClient";
+import { Header } from "./components/layout/header";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${montserrat.variable} antialiased`}
       >
         <QueryClientProviderWrapper>
+          <Header />
         {children}
          <Toaster position="top-right" reverseOrder={false} />
          </QueryClientProviderWrapper>
