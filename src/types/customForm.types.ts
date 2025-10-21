@@ -1,3 +1,5 @@
+import { FieldValues, SubmitHandler } from "react-hook-form";
+
 export interface FormField {
   name: string;
   label?: string;
@@ -6,8 +8,8 @@ export interface FormField {
   validation?: object;
 }
 
-export interface CustomFormProps {
+export interface CustomFormProps<T extends FieldValues> {
   fields: FormField[];
-  onSubmit: (data: Record<string, any>) => void;
+  onSubmit: SubmitHandler<T>;
   submitText?: string;
 }

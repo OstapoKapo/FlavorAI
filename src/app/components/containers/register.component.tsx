@@ -1,14 +1,16 @@
 'use client';
 import { registerConfig } from "@/config/authConfig";
 import Link from "next/link";
-import CustomForm from "../customForm/form";
+import CustomForm from "../custom/customForm/form";
 import { useRegisterMutation } from "@/api/auth/auth.mutation";
+import { IRegisterPayload } from "@/types/auth.types";
+import { SubmitHandler } from "react-hook-form";
 
 export const SignUpContainer = () => {
 
     const registerMutation = useRegisterMutation();
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit: SubmitHandler<IRegisterPayload> = (data): void => {
       console.log("Submitted data:", data);
       registerMutation.mutate(data);
     };

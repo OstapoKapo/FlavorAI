@@ -1,14 +1,16 @@
 'use client'
 import { loginConfig } from "@/config/authConfig";
-import CustomForm from "../customForm/form";
+import CustomForm from "../custom/customForm/form";
 import Link from "next/link";
 import { useLoginMutation } from "@/api/auth/auth.mutation";
+import { ILoginPayload } from "@/types/auth.types";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 export default function LoginContainer() {
 
   const loginMutation = useLoginMutation();
- 
-  const handleSubmit = (data: any) => {
+
+  const handleSubmit: SubmitHandler<ILoginPayload> = (data): void => {
     console.log("Form data:", data);
     loginMutation.mutate(data);
   };

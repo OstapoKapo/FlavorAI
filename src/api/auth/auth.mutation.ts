@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { login, logout, register } from './auth.api';
-import { IAuthResponse, IRegisterResponse } from './auth.types';
+import { IAuthResponse, ILoginPayload, ILoginResponse, IRegisterPayload, IRegisterResponse } from '@/types/auth.types';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-export const useRegisterMutation = () => {
+export const useRegisterMutation = (): UseMutationResult<IRegisterResponse, unknown, IRegisterPayload> => {
     const router = useRouter();
 	return useMutation({
 		mutationFn: register,
@@ -14,24 +14,25 @@ export const useRegisterMutation = () => {
 	});
 };
 
-export const useLoginMutation = () => {
+export const useLoginMutation = (): UseMutationResult<ILoginResponse, unknown, ILoginPayload> => {
     const router = useRouter();
 	return useMutation({
 		mutationFn: login,
-		onSuccess: (data: IAuthResponse) => {
+		onSuccess: (data: ILoginResponse) => {
+			localStorage.setItem('accessToken', data.accessToken);
 			toast.success(data.message);
             router.push('/');
 		},
 	});
 };
 
-export const useLogoutMutation = () => {
-    const router = useRouter();
+export const useLogoutMutation = (): UseMutationResult<IAuthResponse, unknown, void> => {
 	return useMutation({
 		mutationFn: logout,
 		onSuccess: (data: IAuthResponse) => {
 			toast.success(data.message);
-            router.push('/login');
+			localStorage.removeItem('accessToken');
+            window.location.href = '/login'
 		},
 	});
 };
