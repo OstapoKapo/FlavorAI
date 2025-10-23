@@ -10,7 +10,6 @@ const http = httpFactory.createHttpService();
 const authHttp = httpFactory.createAuthHttpService();
 
 export const createRecipe = async (formData: FormData): Promise<ICreateRecipeRes> => {
-    console.log(formData.get('image'));
     return authHttp.post<ICreateRecipeRes, FormData>("recipes", formData );
 }
 

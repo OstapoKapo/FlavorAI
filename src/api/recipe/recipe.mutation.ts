@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { createRecipe } from "./recipe.api";
-import { toast } from "react-hot-toast/headless";
+import { toast } from "react-hot-toast";
 import { ICreateRecipeRes } from "@/types/recipe.types";
 
 export const useCreateRecipeMutation = (): UseMutationResult<ICreateRecipeRes, unknown, FormData> => {

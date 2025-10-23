@@ -10,21 +10,23 @@ import { useSearchStore } from "@/store/seatch.store";
 import { IGetRecipesRes } from "@/types/recipe.types";
 
 interface MainContainerProps {
-   user: IUser;
+   initialUser: IUser;
+   initialRecipes: IGetRecipesRes;
 }
 
-export const MainContainer: React.FC<MainContainerProps> = ({ user }) => {
+export const MainContainer: React.FC<MainContainerProps> = ({ initialUser, initialRecipes }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const heroesPerPage: number = 3;
 
     const {searchTerm}: {searchTerm: string} = useSearchStore();
 
     const {setUser} = useUserStore();
-    setUser(user);
+    setUser(initialUser);
 
     const { data, isLoading, error } = useQuery<IGetRecipesRes>({
         queryKey: ['recipes', currentPage, heroesPerPage, searchTerm], 
         queryFn: () => getRecipes({ page: currentPage, perPage: heroesPerPage, searchTerm }), 
+        initialData: { recipes: initialRecipes.recipes, totalPages: initialRecipes.totalPages },
     }); 
 
     if (isLoading) return <div>Loading...</div>;
@@ -33,7 +35,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({ user }) => {
     const recipes: IRecipe[] | undefined = data?.recipes
 
     return (
-        <div className="flex flex-col gap-8 p-8 pb-20 min-h-[calc(100vh-5rem)]">
+        <div className="flex flex-col gap-8 p-8 pb-20 min-h-[calc(100vh-6rem)]">
             <div className="grid h-135 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                  {recipes?.map(recipe => (
                 <RecipeCard key={recipe.id} recipe={recipe} />

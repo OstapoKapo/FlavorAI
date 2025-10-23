@@ -6,11 +6,11 @@ import { IRecipe } from "@/types/user.types";
 export const RecipeIDPage = async ({ params }: { params: { id: string } }) => {
 
     const result: {data: null | IRecipe} = {data: null }
+    const {id} = await params;
 
     try{
-        const res: IGetRecipeByIdRes = await getRecipeById(params.id);
-        if(res) result.data = res.data;
-        console.log(res);
+        const res: IGetRecipeByIdRes = await getRecipeById(id);
+        if(res) result.data = res;
     }catch{
         return <div>Error loading recipe data</div>
     }
