@@ -13,9 +13,7 @@ export interface IGetRecipesRes {
     totalPages: number;
 }
 
-export interface IGetRecipeByIdRes {
-    data: IRecipe | null;
-}
+export type IGetRecipeByIdRes = IRecipe
 
 export interface IGetRecipesParams {
     page: number;

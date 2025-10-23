@@ -19,7 +19,6 @@ export const useLoginMutation = (): UseMutationResult<ILoginResponse, unknown, I
 	return useMutation({
 		mutationFn: login,
 		onSuccess: (data: ILoginResponse) => {
-			localStorage.setItem('accessToken', data.accessToken);
 			toast.success(data.message);
             router.push('/');
 		},

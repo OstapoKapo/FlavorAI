@@ -62,17 +62,20 @@ export class EnhancedWithAuthHttpService {
 		);
 	}
 
-	private async attachAuthHeader(config: IHttpConfig): Promise<IHttpConfig> {
-		const cookieStore = typeof window === 'undefined' ? await cookies() : null;
-		const token = typeof window === 'undefined' ? cookieStore?.get('accessToken')?.value : localStorage.getItem('accessToken');
-		console.log('token', token);
+	private async attachAuthHeader(config: IHttpConfig, options: RequestInit = {}): Promise<IHttpConfig> {
+		let headers: Record<string, string> = options.headers as Record<string, string> || {};
+		if(typeof window === 'undefined'){
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((cookie) => `${cookie.name}=${cookie.value}`)
+				.join('; '); 
+			headers = {...headers, Cookie: cookieHeader };	
+		}
 		return {
 			...config,
-			credentials: 'include', 
-			 headers: {
-      			...config.headers,
-      			...(token ? { Authorization: `Bearer ${token}` } : {}),
-    		},
+			credentials: 'include',
+			headers,
 		};
 	}
 }
