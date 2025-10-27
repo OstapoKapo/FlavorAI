@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { QueryClientProviderWrapper } from "./components/layout/queryClient";
-import { Header } from "./components/layout/header";
+import { QueryClientProviderWrapper } from "./components/layout/queryClient.provider";
+import { Header } from "./components/layout/header.component";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

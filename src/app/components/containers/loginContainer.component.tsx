@@ -1,6 +1,6 @@
 'use client'
-import { loginConfig } from "@/config/authConfig";
-import CustomForm from "../custom/customForm/form";
+import { loginConfig } from "@/config/auth.config";
+import CustomForm from "../custom/form.component";
 import Link from "next/link";
 import { useLoginMutation } from "@/api/auth/auth.mutation";
 import { ILoginPayload } from "@/types/auth.types";

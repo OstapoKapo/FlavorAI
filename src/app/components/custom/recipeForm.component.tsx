@@ -1,7 +1,8 @@
 "use client";
-import InputField from "../inputField/inputField";
+import InputField from "./inputField.component";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { useCreateRecipeMutation } from "@/api/recipe/recipe.mutation";
+import CustomButton from "./customButton.component";
 
 interface Ingredient {
   name: string;
@@ -134,28 +135,24 @@ export const RecipeForm = () => {
             />
 
             {fields.length > 1 && (
-              <button
-                type="button"
-                className="text-red-500 font-bold h-10 mt-6"
-                onClick={() => remove(index)}
-              >
+              <CustomButton onClick={() => remove(index)} styles={'text-red-500 font-bold h-10 mt-6'}>
                 Remove
-              </button>
+              </CustomButton>
             )}
           </div>
         ))}
       </div>
-
-      <button
+        
+      <CustomButton
         type="button"
-        className={`px-4 py-2 rounded ${
+        styles={`px-4 py-2 rounded ${
           canAddIngredient ? "bg-gray-200" : "bg-gray-400 cursor-not-allowed"
         }`}
         disabled={!canAddIngredient}
         onClick={() => append({ name: "", amount: 0, unit: "" })}
       >
         Add Ingredient
-      </button>
+      </CustomButton>
 
       {!canAddIngredient && (
         <span className="text-red-500 text-sm">
@@ -163,12 +160,12 @@ export const RecipeForm = () => {
         </span>
       )}
 
-      <button
+      <CustomButton
         type="submit"
-        className="bg-[#ff7f50] text-white py-2 px-4 rounded hover:bg-[#ff6f40]"
+        styles="bg-[#ff7f50] text-white py-2 px-4 rounded hover:bg-[#ff6f40]"
       >
         Create Recipe
-      </button>
+      </CustomButton>
     </form>
   );
 };

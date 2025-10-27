@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import InputError from "../inputError/inputError";
+import InputError from "./inputError.component";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
 

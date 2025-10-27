@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import InputField from "../custom/inputField/inputField";
+import InputField from "../custom/inputField.component";
 import { useForm } from "react-hook-form";
-import CustomButton from "../custom/customButton/customButton";
+import CustomButton from "../custom/customButton.component";
 import { useEffect, useState } from "react";
 import { useSearchStore } from "@/store/seatch.store";
 import { useDebouncedCallback } from "@/hooks/useDebounce";
@@ -38,7 +38,7 @@ export const Header = () => {
                 onChange={(e) => debouncedSetSearch(e.target.value)}
                 className="border rounded p-2"
             />}
-            <CustomButton onClick={pathname !== '/' ? () => {router.back()} : () => {router.push('/recipe/create')}}>{pathname === '/' ? 'Create' : 'Back'}</CustomButton>
+            <CustomButton styles="w-30" onClick={pathname !== '/' ? () => {router.back()} : () => {router.push('/recipe/create')}}>{pathname === '/' ? 'Create' : 'Back'}</CustomButton>
         </header>
     )
 }

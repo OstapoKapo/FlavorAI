@@ -1,10 +1,10 @@
 "use client";
 
 import { useForm, FieldValues } from "react-hook-form";
-import InputField from "../inputField/inputField";
-import TextAreaField from "../textAreaField/textAreaField.component";
+import InputField from "./inputField.component";
+import TextAreaField from "./textAreaField.component"
 import { CustomFormProps } from "@/types/customForm.types";
-import CustomButton from "../customButton/customButton";
+import CustomButton from "./customButton.component";
 
 const CustomForm = <T extends FieldValues>({ fields, onSubmit, submitText = "Submit" }: CustomFormProps<T>) => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm<T>({ mode: "onChange" });
