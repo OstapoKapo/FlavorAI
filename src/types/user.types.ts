@@ -12,7 +12,13 @@ export interface IRecipe {
     title: string;
     instructions: string;
     ingredients: string;
-    image?: string;
+    images?: string[];
     createdAt: string;
     updatedAt: string;
+}
+
+export type Ingredient = {
+    name: string;
+    amount: number;
+    unit: "ml" | "g" | "pcs";
 }

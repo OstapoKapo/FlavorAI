@@ -1,5 +1,5 @@
 "use client";
-import { RecipeForm } from "@/app/components/custom/recipeForm/recipeForm.component";
+import { RecipeForm } from "@/app/components/custom/recipeForm.component";
 
 const CreateRecipePage = () => {
 

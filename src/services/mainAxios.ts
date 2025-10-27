@@ -14,8 +14,14 @@ mainAxios.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 		console.log('Error status:', error.status);
-		if (error.status === 401 && !originalRequest._retry) {
-			window.location.href = '/login';
+if (error.response?.status === 401 && !originalRequest._retry){
+	try{
+		originalRequest._retry = true;
+			console.log('Unauthorized! Logging out...');
+			await logout();
+		}catch(err){
+		console.log(err)
+	}
 		}
 		if (error.response) {
 			const status = error.response.status;

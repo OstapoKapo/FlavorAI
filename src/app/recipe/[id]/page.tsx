@@ -1,23 +1,24 @@
 import { getRecipeById } from "@/api/recipe/recipe.api";
 import RecipePageContainer from "@/app/components/containers/recipePageContainer.component";
+import { ReactQueryHydrate } from "@/app/components/layout/queryHidrate.provider";
 import { IGetRecipeByIdRes } from "@/types/recipe.types";
-import { IRecipe } from "@/types/user.types";
+import { dehydrate, hydrate, QueryClient } from "@tanstack/react-query";
 
 export const RecipeIDPage = async ({ params }: { params: { id: string } }) => {
 
-    const result: {data: null | IRecipe} = {data: null }
+    const queryClient = new QueryClient();
+
     const {id} = await params;
 
-    try{
-        const res: IGetRecipeByIdRes = await getRecipeById(id);
-        if(res) result.data = res;
-    }catch{
-        return <div>Error loading recipe data</div>
-    }
-
+    await queryClient.prefetchQuery<IGetRecipeByIdRes>({
+        queryKey: ['recipe', id],
+        queryFn: () => getRecipeById(id),
+    });
 
   return (
-    <RecipePageContainer recipe={result.data!} />
+    <ReactQueryHydrate dehydratedState={dehydrate(queryClient)}>
+        <RecipePageContainer recipeId={id} />
+    </ReactQueryHydrate>
   );
 }
 
